@@ -13,8 +13,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/famflix-logo-wbg.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/favicon-famflix.png",
+        "backgroundColor": "#000"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.paramveer8256.mobile"
@@ -29,10 +29,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/famflix-logo-wobg.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#000"
         }
       ]
     ],
