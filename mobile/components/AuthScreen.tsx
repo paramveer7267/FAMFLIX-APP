@@ -43,7 +43,7 @@ export default function AuthScreen() {
 
             {/* Subtitle */}
             <Text className="text-white text-lg font-semibold text-center mt-2 mb-6">
-              All your favorite anime. All in one place.
+              All your favorite Movies & TV Shows. All in one place.
             </Text>
 
             {/* Free Trial Button */}
