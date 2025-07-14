@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,11 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { X } from "lucide-react-native";
+import Toast from "react-native-toast-message";
 import { useAuthUserStore } from "@/store/authUser.js";
+
 export default function LoginScreen() {
   const { login } = useAuthUserStore();
 
@@ -17,25 +19,29 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const hiddenRef = useRef<TextInput>(null);
-  const visibleRef = useRef<TextInput>(null);
+  async function handleLogin() {
+    try {
+      if (!emailorusername || !password) {
+        Toast.show({ type: "error", text1: "Please fill all fields" });
+        return;
+      }
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-    setTimeout(() => {
-      (showPassword ? visibleRef : hiddenRef).current?.focus();
-    }, 0);
-  };
-  function handleSignup() {
-    login({ emailorusername, password });
+      await login({ emailorusername, password });
+    } catch (err) {
+      console.error("Login Error:", err);
+      Toast.show({ type: "error", text1: "Login failed" });
+    }
   }
+
   return (
     <ScrollView className="flex-1 bg-black">
       <View className="p-2 flex flex-row items-center">
-        <TouchableOpacity onPress={() => router.push("/")}>
+        <TouchableOpacity onPress={() => router.replace("/")}>
           <X color="white" size={28} />
         </TouchableOpacity>
-        <Text className="text-white text-2xl font-bold ml-36">Log In</Text>
+        <View className="absolute left-0 right-0 items-center">
+          <Text className="text-white text-2xl font-bold">Log In</Text>
+        </View>
       </View>
 
       <View className="max-w-xl mx-auto px-4 py-8 my-10">
@@ -52,6 +58,7 @@ export default function LoginScreen() {
               Email / Username
             </Text>
             <TextInput
+              value={emailorusername}
               placeholder="Enter your email"
               placeholderTextColor="#999"
               onChangeText={setEmail}
@@ -61,34 +68,20 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Password Input with two overlapping TextInputs */}
           <View>
             <Text className="text-gray-300 mb-1 font-medium">Password</Text>
             <View className="relative">
-              {!showPassword ? (
-                <TextInput
-                  ref={hiddenRef}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-                  placeholder="Enter the Password"
-                  placeholderTextColor="#999"
-                  className="w-full px-3 py-4 rounded-md border border-gray-700 text-white"
-                />
-              ) : (
-                <TextInput
-                  ref={visibleRef}
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="Enter the Password"
-                  placeholderTextColor="#999"
-                  className="w-full px-3 py-4 rounded-md border border-gray-700 text-white"
-                />
-              )}
-
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Enter your password"
+                placeholderTextColor="#999"
+                secureTextEntry={!showPassword}
+                className="w-full px-3 py-4 rounded-md border border-gray-700 text-white"
+              />
               <TouchableOpacity
                 className="absolute right-3 top-4"
-                onPress={togglePasswordVisibility}
+                onPress={() => setShowPassword((prev) => !prev)}
               >
                 <Text className="text-gray-400 text-md">
                   {showPassword ? "Hide" : "Show"}
@@ -99,11 +92,9 @@ export default function LoginScreen() {
 
           <TouchableOpacity
             className="bg-blue-500 py-3 rounded-md items-center"
-            onPress={handleSignup}
+            onPress={handleLogin}
           >
-            <Text className="text-white font-semibold text-lg">
-              Log In
-            </Text>
+            <Text className="text-white font-semibold text-lg">Log In</Text>
           </TouchableOpacity>
 
           <View className="items-center mt-4">
@@ -113,7 +104,7 @@ export default function LoginScreen() {
                 className="text-blue-400 font-semibold"
                 onPress={() => router.push("/(auth)/signup")}
               >
-                SignUp
+                Sign Up
               </Text>
             </Text>
           </View>

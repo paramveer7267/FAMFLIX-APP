@@ -27,23 +27,31 @@ export default function SignupScreen() {
       (showPassword ? visibleRef : hiddenRef).current?.focus();
     }, 0);
   };
-  function handleSignup() {
-    signup({ email, username, password });
-    const userNow = useAuthUserStore.getState().user;
+  async function handleSignup() {
+    try {
+      await signup({ email, username, password });
 
-    if (userNow) {
-      router.replace("/(tabs)/home"); // ✅ Redirect after signup
+      const userNow = useAuthUserStore.getState().user;
+
+      if (userNow) {
+        router.replace("/(tabs)/home"); // ✅ Redirect after signup
+      }
+    } catch (error) {
+      console.error("Signup failed:", error);
+      // Optionally show a Toast here if signup store doesn’t already handle it
     }
   }
+
   return (
     <ScrollView className="flex-1 bg-black">
-      <View className="p-2 flex flex-row items-center">
+      <View className="p-2 flex flex-row items-center relative">
         <TouchableOpacity onPress={() => router.push("/")}>
           <X color="white" size={28} />
         </TouchableOpacity>
-        <Text className="text-white text-2xl font-bold ml-28">
-          Create Account
-        </Text>
+
+        <View className="absolute left-0 right-0 items-center">
+          <Text className="text-white text-2xl font-bold">Create Account</Text>
+        </View>
       </View>
 
       <View className="max-w-xl mx-auto px-4 py-8 my-10">
