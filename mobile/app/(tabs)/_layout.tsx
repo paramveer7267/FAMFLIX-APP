@@ -24,7 +24,7 @@ const TabLayout = () => {
         name="home"
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -32,7 +32,7 @@ const TabLayout = () => {
         name="watchlist"
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="bookmark" size={size} color={color} />
+            <Ionicons name="bookmark-outline" size={size} color={color} />
           ),
         }}
       />
@@ -40,7 +40,7 @@ const TabLayout = () => {
         name="browse"
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="add-circle" size={size} color={COLORS.primary} />
+            <Ionicons name="layers-outline" size={size} color={color} />
           ),
         }}
       />
@@ -48,7 +48,7 @@ const TabLayout = () => {
         name="profile"
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="heart" size={size} color={color} />
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}
       />
