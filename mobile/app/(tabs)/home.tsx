@@ -44,7 +44,7 @@ const Home = () => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 paddingHorizontal: 24,
-                paddingTop: 16,
+                paddingTop: 10,
               }}
             >
               <Image

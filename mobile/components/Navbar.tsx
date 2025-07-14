@@ -10,7 +10,7 @@ const Navbar = () => {
         alignItems: "center",
         justifyContent: "space-between",
         paddingHorizontal: 24,
-        paddingTop: 6,
+        paddingTop: 10,
         paddingBottom: 6,
         backgroundColor: "black",
       }}
