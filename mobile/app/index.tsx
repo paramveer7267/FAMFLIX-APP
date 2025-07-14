@@ -18,6 +18,9 @@ export default function Index() {
       </View>
     );
   }
+  if (user === undefined && !isCheckingAuth) {
+    return null;
+  }
 
   return user ? <Redirect href="/(tabs)/home" /> : <AuthScreen />;
 }

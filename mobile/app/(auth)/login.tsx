@@ -102,7 +102,7 @@ export default function LoginScreen() {
               Don't have an Account?{" "}
               <Text
                 className="text-blue-400 font-semibold"
-                onPress={() => router.push("/(auth)/signup")}
+                onPress={() => router.replace("/(auth)/signup")}
               >
                 Sign Up
               </Text>

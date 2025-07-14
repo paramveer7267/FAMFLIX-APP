@@ -141,7 +141,7 @@ export default function SignupScreen() {
               Already a member?{" "}
               <Text
                 className="text-blue-400 font-semibold"
-                onPress={() => router.push("/(auth)/login")}
+                onPress={() => router.replace("/(auth)/login")}
               >
                 Login
               </Text>
