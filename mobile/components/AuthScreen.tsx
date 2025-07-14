@@ -56,10 +56,10 @@ export default function AuthScreen() {
             {/* Login Button */}
             <View className="items-center">
               <TouchableOpacity
-                className="border border-orange-400 py-3 w-full rounded-md items-center mb-3"
+                className="border-2 border-blue-700 py-3 w-full rounded-md items-center mb-3"
                 onPress={() => router.push("/(auth)/login")}
               >
-                <Text className="font-semibold text-blue-500">LOG IN</Text>
+                <Text className="font-semibold text-lg text-blue-500">LOG IN</Text>
               </TouchableOpacity>
             </View>
 

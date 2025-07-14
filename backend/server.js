@@ -55,12 +55,12 @@ app.use("/api/v1/search", protectRoute, searchRoutes);
 app.use("/api/v1/watchlist", protectRoute, watchListRoutes);
 app.use("/api/v1/watchhistory", protectRoute, watchHistoryRoutes);
 
-if (envVars.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-}
+// if (envVars.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/frontend/dist")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+//   });
+// }
 
 app.listen(PORT, () => {
   console.log("server stated " + PORT);

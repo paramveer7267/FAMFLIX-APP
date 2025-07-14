@@ -1,12 +1,11 @@
 {
-  "name": "fanflix",
+  "name": "fanflix-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for Fanflix",
   "main": "backend/server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
-    "start": "cross-env NODE_ENV=production node backend/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "cross-env NODE_ENV=production node backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +13,6 @@
   "type": "module",
   "dependencies": {
     "@consumet/extensions": "^1.8.1",
-    "@tailwindcss/vite": "^4.1.3",
     "axios": "^1.8.4",
     "axios-retry": "^4.5.0",
     "bcryptjs": "^3.0.2",
@@ -27,12 +25,7 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "@types/node": "^22.13.14",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
-    "nodemon": "^3.1.9",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.3"
+    "nodemon": "^3.1.9"
   }
 }
