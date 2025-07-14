@@ -1,17 +1,23 @@
-import { Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { Redirect } from "expo-router";
+import { View, ActivityIndicator } from "react-native";
+import AuthScreen from "@/components/AuthScreen";
+import { useAuthUserStore } from "@/store/authUser";
 
 export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text className="text-red-500 text-xl">
-        Edit app/index.tsx to edit this screen.
-      </Text>
-    </View>
-  );
+  const { user, isCheckingAuth, authCheck } = useAuthUserStore();
+
+  useEffect(() => {
+    authCheck();
+  }, [authCheck]);
+
+  if (isCheckingAuth) {
+    return (
+      <View className="flex-1 justify-center items-center bg-black">
+        <ActivityIndicator size="large" color="#ffffff" />
+      </View>
+    );
+  }
+
+  return user ? <Redirect href="/(tabs)/home" /> : <AuthScreen />;
 }
