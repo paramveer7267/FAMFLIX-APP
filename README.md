@@ -3,7 +3,7 @@
 <p align="center">
   Welcome to <strong>FAMFLIX</strong> – a modern movie streaming Mobile app built for film lovers. Explore trending content, watch trailers, and discover your next favorite movie or show.
   <br />
-  <a href="https://famflix.onrender.com"><strong>Live Demo</strong></a>
+<!--   <a href="https://famflix.onrender.com"><strong>Live Demo</strong></a> -->
 </p>
 
 ---
