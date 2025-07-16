@@ -1,7 +1,7 @@
 <h1 align="center">🎬 FAMFLIX</h1>
 
 <p align="center">
-  Welcome to <strong>FAMFLIX</strong> – a modern movie streaming web app built for film lovers. Explore trending content, watch trailers, and discover your next favorite movie or show.
+  Welcome to <strong>FAMFLIX</strong> – a modern movie streaming Mobile app built for film lovers. Explore trending content, watch trailers, and discover your next favorite movie or show.
   <br />
   <a href="https://famflix.onrender.com"><strong>Live Demo</strong></a>
 </p>
@@ -12,7 +12,7 @@
 
 - 🎥 **Movie Streaming UI** – Watch movie trailers in a beautiful player interface.
 - 🔍 **Dynamic Search** – Smart search with pagination and tabs for movies, shows, and people.
-- 🎞 **Watch Page** – Dive deep into movie/show details, cast, and similar content.
+- 🎞 **Watch Screen** – Dive deep into movie/show details, cast, and similar content.
 - 📱 **Responsive Design** – Works perfectly on all devices.
 - 🧭 **Smooth Horizontal Scroll** – Netflix-like carousel for similar content.
 
@@ -20,12 +20,12 @@
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React.js, Tailwind CSS
+- **Frontend:** React Native, Nativewind CSS
 - **Backend:** Node.js, Express (Deployed on Render)
 - **API:** TMDB (The Movie Database)
 - **State Management:** Zustand
 - **Token:** JWT (JSON Web Token)
-- **Deployment:** Full Stack on Render
+- **Deployment:** Frontend on Expo
 
 ---
 
@@ -34,8 +34,8 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/paramveer7267/FamFlix.git
-cd FamFlix
+git clone https://github.com/paramveer7267/FamFlix-app.git
+cd FamFlix-app
 ```
 
 ### 2. Install Dependencies
