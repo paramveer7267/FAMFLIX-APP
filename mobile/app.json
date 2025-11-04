@@ -2,11 +2,11 @@
   "expo": {
     "name": "FAMFLIX",
     "slug": "mobile",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/famflix-logo-wbg.png",
     "scheme": "mobile",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark", 
     "newArchEnabled": true,
 
     "ios": {
@@ -18,12 +18,20 @@
         "foregroundImage": "./assets/images/favicon.png",
         "backgroundColor": "#000000"
       },
-      "edgeToEdgeEnabled": true,
+      "edgeToEdgeEnabled": false,
       "package": "com.paramveer8256.mobile"
     },
 
     "androidStatusBar": {
-      "backgroundColor": "#000000"
+      "backgroundColor": "#000000",
+      "barStyle": "light-content",
+      "translucent": false
+    },
+
+    "androidNavigationBar": {
+      "visible": true,
+      "backgroundColor": "#000000",
+      "barStyle": "light-content"
     },
 
     "web": {

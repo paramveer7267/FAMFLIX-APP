@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { LogOut, Pencil, Heart } from "lucide-react-native";
+import { LogOut, Pencil, Heart, InfoIcon } from "lucide-react-native";
 import api from "@/utils/axiosInstance";
 import Toast from "react-native-toast-message";
 import { useAuthUserStore } from "@/store/authUser";
@@ -125,6 +125,12 @@ const Profile = () => {
           icon={<Heart color="white" size={22} />}
           label="Watchlist"
           onPress={() => router.push("/(tabs)/watchlist")}
+        />
+        <ProfileCard
+          key="about-card"
+          icon={<InfoIcon color="white" size={22} />}
+          label="Updates"
+          onPress={() => router.push("/(modals)/updates")}
         />
         <ProfileCard
           key="logout-card"

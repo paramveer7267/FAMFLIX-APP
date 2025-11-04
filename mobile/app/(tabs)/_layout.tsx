@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import { COLORS } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
