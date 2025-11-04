@@ -21,11 +21,20 @@ const TabLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="movie"
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "Movies",
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons name="film-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tv"
+        options={{
+          tabBarLabel: "TV Shows",
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="tv-outline" size={size} color={color} />
           ),
         }}
       />

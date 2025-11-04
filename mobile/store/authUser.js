@@ -1,7 +1,7 @@
 import Toast from "react-native-toast-message";
 import { create } from "zustand";
-import axios from "../utils/axiosInstance.js";
 import { router } from "expo-router";
+import api from "@/utils/axiosInstance";
 export const useAuthUserStore = create((set) => ({
   user: null,
   isSigningUp: false,
@@ -13,7 +13,7 @@ export const useAuthUserStore = create((set) => ({
   signup: async (credentials) => {
     set({ isSigningUp: true });
     try {
-      const res = await axios.post("/api/v1/auth/signup", credentials, {
+      const res = await api.post("/api/v1/auth/signup", credentials, {
         withCredentials: true,
       });
       set({ user: res.data.user, isSigningUp: false });
@@ -35,7 +35,7 @@ export const useAuthUserStore = create((set) => ({
   login: async (credentials) => {
     set({ isLoggingIn: true });
     try {
-      const res = await axios.post("/api/v1/auth/login", credentials, {
+      const res = await api.post("/api/v1/auth/login", credentials, {
         withCredentials: true,
       });
       set({ user: res.data.user, isLoggingIn: false });
@@ -56,7 +56,7 @@ export const useAuthUserStore = create((set) => ({
   logout: async () => {
     set({ isLoggingOut: true });
     try {
-      await axios.post("/api/v1/auth/logout");
+      await api.post("/api/v1/auth/logout");
       set({ user: null, isLoggingOut: false });
       Toast.show({
         type: "success",
@@ -90,7 +90,7 @@ export const useAuthUserStore = create((set) => ({
     })),
 
   updateInfo: async ({ avatar, username, email }) => {
-    const promise = axios.post("/api/v1/user/updateInfo", {
+    const promise = api.post("/api/v1/user/updateInfo", {
       avatar,
       username,
       email,
@@ -126,7 +126,7 @@ export const useAuthUserStore = create((set) => ({
   authCheck: async () => {
     set({ isCheckingAuth: true });
     try {
-      const res = await axios.get("/api/v1/auth/authCheck");
+      const res = await api.get("/api/v1/auth/authCheck");
       set({ user: res.data.user, isCheckingAuth: false });
       set({ online: true });
     } catch {

@@ -1,0 +1,62 @@
+export const avatarMap: Record<string, any> = {
+  // 🧠 ANIME AVATARS
+  "/avatars/anime/anime-1.jpg": require("@/assets/images/avatars/anime/anime-1.jpg"),
+  "/avatars/anime/anime-2.jpg": require("@/assets/images/avatars/anime/anime-2.jpg"),
+  "/avatars/anime/anime-3.jpg": require("@/assets/images/avatars/anime/anime-3.jpg"),
+  "/avatars/anime/anime-4.jpg": require("@/assets/images/avatars/anime/anime-4.jpg"),
+  "/avatars/anime/anime-5.jpg": require("@/assets/images/avatars/anime/anime-5.jpg"),
+  "/avatars/anime/anime-6.jpg": require("@/assets/images/avatars/anime/anime-6.jpg"),
+  "/avatars/anime/anime-7.jpg": require("@/assets/images/avatars/anime/anime-7.jpg"),
+  "/avatars/anime/anime-8.jpg": require("@/assets/images/avatars/anime/anime-8.jpg"),
+  "/avatars/anime/anime-9.jpg": require("@/assets/images/avatars/anime/anime-9.jpg"),
+  "/avatars/anime/anime-10.jpg": require("@/assets/images/avatars/anime/anime-10.jpg"),
+  "/avatars/anime/anime-11.jpg": require("@/assets/images/avatars/anime/anime-11.jpg"),
+  "/avatars/anime/anime-12.jpg": require("@/assets/images/avatars/anime/anime-12.jpg"),
+
+  // 🎩 CLASSIC AVATARS
+  "/avatars/classic/classic-1.png": require("@/assets/images/avatars/classic/classic-1.png"),
+  "/avatars/classic/classic-2.png": require("@/assets/images/avatars/classic/classic-2.png"),
+  "/avatars/classic/classic-3.png": require("@/assets/images/avatars/classic/classic-3.png"),
+  "/avatars/classic/classic-4.png": require("@/assets/images/avatars/classic/classic-4.png"),
+  "/avatars/classic/classic-5.png": require("@/assets/images/avatars/classic/classic-5.png"),
+  "/avatars/classic/classic-6.jpg": require("@/assets/images/avatars/classic/classic-6.jpg"),
+  "/avatars/classic/classic-7.jpg": require("@/assets/images/avatars/classic/classic-7.jpg"),
+  "/avatars/classic/classic-8.jpg": require("@/assets/images/avatars/classic/classic-8.jpg"),
+  "/avatars/classic/classic-9.jpg": require("@/assets/images/avatars/classic/classic-9.jpg"),
+  "/avatars/classic/classic-10.jpg": require("@/assets/images/avatars/classic/classic-10.jpg"),
+  "/avatars/classic/classic-11.jpg": require("@/assets/images/avatars/classic/classic-11.jpg"),
+  "/avatars/classic/classic-12.jpg": require("@/assets/images/avatars/classic/classic-12.jpg"),
+
+  // 😎 FUNKY AVATARS
+  "/avatars/funky/funky-1.png": require("@/assets/images/avatars/funky/funky-1.png"),
+  "/avatars/funky/funky-2.jpg": require("@/assets/images/avatars/funky/funky-2.jpg"),
+  "/avatars/funky/funky-3.jpg": require("@/assets/images/avatars/funky/funky-3.jpg"),
+  "/avatars/funky/funky-4.jpg": require("@/assets/images/avatars/funky/funky-4.jpg"),
+  "/avatars/funky/funky-5.jpg": require("@/assets/images/avatars/funky/funky-5.jpg"),
+  "/avatars/funky/funky-6.png": require("@/assets/images/avatars/funky/funky-6.png"),
+  "/avatars/funky/funky-7.jpg": require("@/assets/images/avatars/funky/funky-7.jpg"),
+  "/avatars/funky/funky-8.jpg": require("@/assets/images/avatars/funky/funky-8.jpg"),
+  "/avatars/funky/funky-9.jpg": require("@/assets/images/avatars/funky/funky-9.jpg"),
+  "/avatars/funky/funky-10.jpg": require("@/assets/images/avatars/funky/funky-10.jpg"),
+  "/avatars/funky/funky-11.jpg": require("@/assets/images/avatars/funky/funky-11.jpg"),
+  "/avatars/funky/funky-12.jpg": require("@/assets/images/avatars/funky/funky-12.jpg"),
+
+  // 🤪 INSANE AVATARS
+  "/avatars/insane/insane-1.jpg": require("@/assets/images/avatars/insane/insane-1.jpg"),
+  "/avatars/insane/insane-2.jpg": require("@/assets/images/avatars/insane/insane-2.jpg"),
+  "/avatars/insane/insane-3.jpg": require("@/assets/images/avatars/insane/insane-3.jpg"),
+  "/avatars/insane/insane-4.jpg": require("@/assets/images/avatars/insane/insane-4.jpg"),
+  "/avatars/insane/insane-5.jpg": require("@/assets/images/avatars/insane/insane-5.jpg"),
+  "/avatars/insane/insane-6.jpg": require("@/assets/images/avatars/insane/insane-6.jpg"),
+  "/avatars/insane/insane-7.jpg": require("@/assets/images/avatars/insane/insane-7.jpg"),
+  "/avatars/insane/insane-8.jpg": require("@/assets/images/avatars/insane/insane-8.jpg"),
+  "/avatars/insane/insane-9.jpg": require("@/assets/images/avatars/insane/insane-9.jpg"),
+  "/avatars/insane/insane-10.jpg": require("@/assets/images/avatars/insane/insane-10.jpg"),
+  "/avatars/insane/insane-11.jpg": require("@/assets/images/avatars/insane/insane-11.jpg"),
+  "/avatars/insane/insane-12.jpg": require("@/assets/images/avatars/insane/insane-12.jpg"),
+
+  // 🕰️ OLD AVATARS
+  "/avatars/old/avatar1.png": require("@/assets/images/avatars/old/avatar1.png"),
+  "/avatars/old/avatar2.png": require("@/assets/images/avatars/old/avatar2.png"),
+  "/avatars/old/avatar3.png": require("@/assets/images/avatars/old/avatar3.png"),
+};

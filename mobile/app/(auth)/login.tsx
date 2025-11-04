@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { router } from "expo-router";
 import { X } from "lucide-react-native";
@@ -18,6 +19,7 @@ export default function LoginScreen() {
   const [emailorusername, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // 🔥 NEW
 
   async function handleLogin() {
     try {
@@ -26,17 +28,31 @@ export default function LoginScreen() {
         return;
       }
 
+      setLoading(true); // Start loader
+
       await login({ emailorusername, password });
+      const userNow = useAuthUserStore.getState().user;
+
+      if (userNow) {
+        router.replace("/(tabs)/movie");
+      } else {
+        Toast.show({ type: "error", text1: "Invalid credentials" });
+      }
     } catch (err) {
       console.error("Login Error:", err);
       Toast.show({ type: "error", text1: "Login failed" });
+    } finally {
+      setLoading(false); // Stop loader
     }
   }
 
   return (
     <ScrollView className="flex-1 bg-black">
       <View className="p-2 flex flex-row items-center">
-        <TouchableOpacity onPress={() => router.replace("/")}>
+        <TouchableOpacity
+          onPress={() => router.replace("/")}
+          disabled={loading} // disable back press during login
+        >
           <X color="white" size={28} />
         </TouchableOpacity>
         <View className="absolute left-0 right-0 items-center">
@@ -64,6 +80,7 @@ export default function LoginScreen() {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
+              editable={!loading}
               className="w-full px-3 py-4 rounded-md border border-gray-700 text-white"
             />
           </View>
@@ -77,9 +94,11 @@ export default function LoginScreen() {
                 placeholder="Enter your password"
                 placeholderTextColor="#999"
                 secureTextEntry={!showPassword}
+                editable={!loading}
                 className="w-full px-3 py-4 rounded-md border border-gray-700 text-white"
               />
               <TouchableOpacity
+                disabled={loading}
                 className="absolute right-3 top-4"
                 onPress={() => setShowPassword((prev) => !prev)}
               >
@@ -91,10 +110,17 @@ export default function LoginScreen() {
           </View>
 
           <TouchableOpacity
-            className="bg-blue-500 py-3 rounded-md items-center"
+            className={`py-3 rounded-md items-center ${
+              loading ? "bg-gray-600" : "bg-blue-500"
+            }`}
             onPress={handleLogin}
+            disabled={loading}
           >
-            <Text className="text-white font-semibold text-lg">Log In</Text>
+            {loading ? (
+              <ActivityIndicator color="white" size={23} />
+            ) : (
+              <Text className="text-white font-semibold text-lg">Log In</Text>
+            )}
           </TouchableOpacity>
 
           <View className="items-center mt-4">
@@ -102,7 +128,7 @@ export default function LoginScreen() {
               Don't have an Account?{" "}
               <Text
                 className="text-blue-400 font-semibold"
-                onPress={() => router.replace("/(auth)/signup")}
+                onPress={() => !loading && router.replace("/(auth)/signup")}
               >
                 Sign Up
               </Text>

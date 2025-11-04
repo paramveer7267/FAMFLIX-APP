@@ -22,5 +22,6 @@ export default function Index() {
     return null;
   }
 
-  return user ? <Redirect href="/(tabs)/home" /> : <AuthScreen />;
+  return user ? <Redirect href="/(tabs)/movie" /> : <AuthScreen />;
 }
+// bg-[#1F2937] for cards

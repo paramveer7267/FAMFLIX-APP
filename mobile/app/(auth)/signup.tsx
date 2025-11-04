@@ -34,7 +34,7 @@ export default function SignupScreen() {
       const userNow = useAuthUserStore.getState().user;
 
       if (userNow) {
-        router.replace("/(tabs)/home"); // ✅ Redirect after signup
+        router.replace("/(tabs)/movie"); // ✅ Redirect after signup
       }
     } catch (error) {
       console.error("Signup failed:", error);
