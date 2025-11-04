@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
-import { Redirect } from "expo-router";
+import { useRouter } from "expo-router";
 import { View, ActivityIndicator } from "react-native";
 import AuthScreen from "@/components/AuthScreen";
 import { useAuthUserStore } from "@/store/authUser";
 
 export default function Index() {
+  const router = useRouter();
   const { user, isCheckingAuth, authCheck } = useAuthUserStore();
 
   useEffect(() => {
     authCheck();
   }, [authCheck]);
+
+  useEffect(() => {
+    if (!isCheckingAuth && user) {
+      // imperatively replace screen — no white flash
+      router.replace("/(tabs)/movie");
+    }
+  }, [isCheckingAuth, user]);
 
   if (isCheckingAuth) {
     return (
@@ -18,9 +26,13 @@ export default function Index() {
       </View>
     );
   }
-  if (user === undefined && !isCheckingAuth) {
-    return null;
+
+  // while redirecting, keep black background to avoid flash
+  if (user) {
+    return <View className="flex-1 bg-black" />;
   }
-  return user ? <Redirect href="/(tabs)/movie" /> : <AuthScreen />;
+
+  return <AuthScreen />;
 }
+
 // bg-[#1F2937] for cards
