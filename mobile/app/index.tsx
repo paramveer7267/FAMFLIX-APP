@@ -21,7 +21,6 @@ export default function Index() {
   if (user === undefined && !isCheckingAuth) {
     return null;
   }
-
   return user ? <Redirect href="/(tabs)/movie" /> : <AuthScreen />;
 }
 // bg-[#1F2937] for cards
