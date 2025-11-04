@@ -143,7 +143,7 @@ const WatchList = () => {
   return (
     <View className="flex-1 bg-black">
       {/* Header */}
-      <View className="flex-row justify-between items-center mx-4 mb-8">
+      <View className="flex-row justify-between items-center mx-4 mt-4 mb-8">
         <TouchableOpacity onPress={() => router.back()}>
           <ArrowLeft color="white" size={28} />
         </TouchableOpacity>
