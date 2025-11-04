@@ -15,7 +15,7 @@
 
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/favicon.png",
+        "foregroundImage": "./assets/images/famflix-favicon.png",
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true,
