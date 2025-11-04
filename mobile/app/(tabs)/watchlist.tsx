@@ -14,7 +14,7 @@ import axios from "axios";
 import Toast from "react-native-toast-message";
 import useWatchlist from "@/hooks/useWatchlist";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-
+import { COLORS } from "@/constants/theme";
 const IMG_BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const formatDate = (dateString: string) => {
@@ -101,7 +101,7 @@ const WatchList = () => {
   if (isLoading) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator color={COLORS.primary} size="large" />{" "}
         <Text className="text-white mt-3">Loading Watchlist...</Text>
       </View>
     );

@@ -1,66 +1,137 @@
-import { COLORS } from "@/constants/theme";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useRef, useEffect } from "react";
+import { Animated, Pressable, Text, Platform } from "react-native";
 import { Tabs } from "expo-router";
-import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { COLORS } from "@/constants/theme";
+import { useIsFocused } from "@react-navigation/native";
+
+const CustomTabButton = ({ onPress, name, label, size = 22 }) => {
+  const isFocused = useIsFocused();
+  const scale = useRef(new Animated.Value(isFocused ? 1.08 : 1)).current;
+
+  useEffect(() => {
+    Animated.spring(scale, {
+      toValue: isFocused ? 1.08 : 1,
+      useNativeDriver: true,
+      friction: 5,
+      tension: 90,
+    }).start();
+  }, [isFocused]);
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 1.12,
+      useNativeDriver: true,
+      friction: 6,
+      tension: 100,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: isFocused ? 1.08 : 1,
+      useNativeDriver: true,
+      friction: 6,
+      tension: 100,
+    }).start();
+  };
+
+  // ✅ This now re-renders with proper focus state
+  const color = isFocused ? COLORS.primary : COLORS.grey;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      android_ripple={{ color: "#ffffff15", borderless: true }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: Platform.OS === "android" ? 6 : 8,
+      }}
+    >
+      <Animated.View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          transform: [{ scale }],
+        }}
+      >
+        <Ionicons name={name} size={size} color={color} />
+        <Text
+          style={{
+            color,
+            fontSize: 11,
+            marginTop: 2,
+            fontWeight: isFocused ? "600" : "400",
+          }}
+        >
+          {label}
+        </Text>
+      </Animated.View>
+    </Pressable>
+  );
+};
+
 const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: COLORS.primary,
-        tabBarInactiveTintColor: COLORS.grey,
+        tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "black",
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
-          height: 50,
-          paddingBottom: 8,
+          height: 56,
+          paddingBottom: 6,
         },
       }}
     >
       <Tabs.Screen
         name="movie"
         options={{
-          tabBarLabel: "Movies",
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="film-outline" size={size} color={color} />
+          tabBarButton: (props) => (
+            <CustomTabButton {...props} name="film-outline" label="Movies" />
           ),
         }}
       />
       <Tabs.Screen
         name="tv"
         options={{
-          tabBarLabel: "TV Shows",
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="tv-outline" size={size} color={color} />
+          tabBarButton: (props) => (
+            <CustomTabButton {...props} name="tv-outline" label="TV Shows" />
           ),
         }}
       />
       <Tabs.Screen
         name="watchlist"
         options={{
-          tabBarLabel: "Watch List",
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="bookmark-outline" size={size} color={color} />
+          tabBarButton: (props) => (
+            <CustomTabButton
+              {...props}
+              name="bookmark-outline"
+              label="Watch List"
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="browse"
         options={{
-          tabBarLabel: "Browse",
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="layers-outline" size={size} color={color} />
+          tabBarButton: (props) => (
+            <CustomTabButton {...props} name="layers-outline" label="Browse" />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: "Account",
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+          tabBarButton: (props) => (
+            <CustomTabButton {...props} name="person-outline" label="Account" />
           ),
         }}
       />

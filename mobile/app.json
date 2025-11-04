@@ -2,11 +2,11 @@
   "expo": {
     "name": "FAMFLIX",
     "slug": "mobile",
-    "version": "1.0.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/images/famflix-logo-wbg.png",
     "scheme": "mobile",
-    "userInterfaceStyle": "dark", 
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
 
     "ios": {
@@ -29,7 +29,7 @@
     },
 
     "androidNavigationBar": {
-      "visible": true,
+      "visible": "leanback",
       "backgroundColor": "#000000",
       "barStyle": "light-content"
     },

@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { View, ActivityIndicator } from "react-native";
 import AuthScreen from "@/components/AuthScreen";
 import { useAuthUserStore } from "@/store/authUser";
-
+import { COLORS } from "@/constants/theme";
 export default function Index() {
   const router = useRouter();
   const { user, isCheckingAuth, authCheck } = useAuthUserStore();
@@ -22,7 +22,7 @@ export default function Index() {
   if (isCheckingAuth) {
     return (
       <View className="flex-1 justify-center items-center bg-black">
-        <ActivityIndicator size="large" color="#ffffff" />
+        <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
     );
   }

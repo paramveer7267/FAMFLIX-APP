@@ -15,7 +15,7 @@ import { useRouter } from "expo-router";
 import { useAuthUserStore } from "@/store/authUser";
 import Toast from "react-native-toast-message";
 import { avatarMap } from "@/constants/avatarMap";
-
+import { COLORS } from "@/constants/theme";
 const avatarCategories = {
   Classic: [
     "classic1.png",
@@ -105,7 +105,7 @@ const EditProfile = () => {
   if (loading) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator color={COLORS.primary} size="large" />
         <Text className="text-white mt-3">Loading...</Text>
       </View>
     );

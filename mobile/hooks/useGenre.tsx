@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useContentStore } from "../store/content";
 import { useAuthUserStore } from "../store/authUser"; // ✅ import missing
-import axios from "axios";
+import api from "@/utils/axiosInstance";
 
 interface UseGenreProps {
   genreId: string;
@@ -21,7 +21,7 @@ const useGenre = ({ genreId }: UseGenreProps) => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const response = await axios.get(`/api/v1/${contentType}/genre`);
+        const response = await api.get(`/api/v1/${contentType}/genre`);
         setGenres(response.data.genres);
       } catch (error) {
         console.error("Error fetching genres:", error);
@@ -37,7 +37,7 @@ const useGenre = ({ genreId }: UseGenreProps) => {
     setLoading(true);
 
     try {
-      const res = await axios.get(
+      const res = await api.get(
         `/api/v1/${contentType}/genre/${genreId}?page=${page}`
       );
 

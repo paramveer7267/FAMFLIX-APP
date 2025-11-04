@@ -15,7 +15,7 @@ import api from "@/utils/axiosInstance";
 import Toast from "react-native-toast-message";
 import { useAuthUserStore } from "@/store/authUser";
 import { avatarMap } from "@/constants/avatarMap";
-
+import { COLORS } from "@/constants/theme";
 const IMG_BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const formatDate = (dateString: string) => {
@@ -61,7 +61,7 @@ const Profile = () => {
   if (loading) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator size="large" color={COLORS.primary} />
         <Text className="text-white mt-2">Loading Profile...</Text>
       </View>
     );
@@ -69,7 +69,7 @@ const Profile = () => {
   if (!user) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator color="white" />
+        <ActivityIndicator color={COLORS.primary} />
       </View>
     );
   }
@@ -169,7 +169,7 @@ const Profile = () => {
                 }
                 className="flex-row items-center justify-between bg-[#323f52] p-3 mb-2 rounded-lg"
               >
-                <View className="flex-row items-center space-x-3 flex-1">
+                <View className="flex-row items-center gap-x-2 flex-1">
                   <Image
                     source={{ uri: IMG_BASE_URL + item?.image }}
                     className="w-12 h-16 rounded-lg"
