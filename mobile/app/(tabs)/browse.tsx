@@ -111,8 +111,8 @@ const Browse = () => {
           fontSize: 22,
           fontWeight: "700",
           textAlign: "center",
-          marginVertical: 16,
         }}
+        className="mt-4 mb-6"
       >
         Browse
       </Text>
@@ -175,11 +175,7 @@ const Browse = () => {
         title="Top Rated Movies"
         endpoint="top_rated"
       />
-      <CategorySection
-        type="movie"
-        title="Popular Movies"
-        endpoint="popular"
-      />
+      <CategorySection type="movie" title="Popular Movies" endpoint="popular" />
       <CategorySection type="tv" title="Top Rated TV" endpoint="top_rated" />
       <CategorySection type="tv" title="Airing Today" endpoint="airing_today" />
     </ScrollView>

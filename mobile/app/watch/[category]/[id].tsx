@@ -22,6 +22,10 @@ import api from "@/utils/axiosInstance";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import useWatchlist from "@/hooks/useWatchlist";
 import TvEpisodes from "@/components/TvEpisodes";
+import { servers } from "@/constants/servers";
+import { COLORS } from "@/constants/theme";
+import YoutubePlayer from "react-native-youtube-iframe";
+
 const IMG_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const { width } = Dimensions.get("window");
 
@@ -30,7 +34,6 @@ const WatchPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const sliderRef = useRef<FlatList>(null);
-
   const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [trailers, setTrailers] = useState<any[]>([]);
@@ -39,7 +42,7 @@ const WatchPage = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [similar, setSimilar] = useState<any[]>([]);
   const [cast, setCast] = useState<any[]>([]);
-
+  const [selectedServer, setSelectedServer] = useState(servers[0]);
   // Added for TV show episodes
   const [seasonNumber, setSeasonNumber] = useState<number | null>(null);
   const [episodeNumber, setEpisodeNumber] = useState<number | null>(null);
@@ -107,7 +110,7 @@ const WatchPage = () => {
     fetchData();
   }, [category, id]);
 
-  // ✅ Check bookmark status
+  //  Check bookmark status
   useEffect(() => {
     const bookmarked = watchlist?.some(
       (item) => String(item.id) === id && item.type === category
@@ -136,7 +139,7 @@ const WatchPage = () => {
   if (loading) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator size="large" color={COLORS.primary} />
         <Text className="text-white mt-4">Loading...</Text>
       </View>
     );
@@ -214,12 +217,17 @@ const WatchPage = () => {
                   <ChevronRight color="white" size={26} />
                 </TouchableOpacity>
               </View>
-              <WebView
-                source={{
-                  uri: `https://www.youtube.com/embed/${trailers[currentTrailerIdx]?.key}`,
+              <YoutubePlayer
+                height={250}
+                play={false} // set true if you want autoplay
+                videoId={trailers[currentTrailerIdx]?.key}
+                onError={(e) => console.log("YouTube Player error:", e)}
+                webViewProps={{
+                  allowsFullscreenVideo: true,
+                  allowsInlineMediaPlayback: true,
+                  mediaPlaybackRequiresUserAction: false,
+                  javaScriptEnabled: true,
                 }}
-                style={{ height: 250 }}
-                allowsFullscreenVideo
               />
             </>
           ) : (
@@ -232,15 +240,91 @@ const WatchPage = () => {
             source={{
               uri:
                 category === "tv" && seasonNumber && episodeNumber
-                  ? `https://vidsrc.ru/tv/${id}/${seasonNumber}/${episodeNumber}`
-                  : `https://vidsrc.ru/${category}/${id}`,
+                  ? `${selectedServer.tvUrl}${id}/${seasonNumber}/${episodeNumber}`
+                  : `${selectedServer.movieUrl}${id}`,
             }}
             style={{ height: 250 }}
             allowsFullscreenVideo
+            allowsInlineMediaPlayback={true}
+            javaScriptEnabled
+            domStorageEnabled
+            setSupportMultipleWindows={false} // 🚫 no new tabs/windows
+            originWhitelist={["*"]}
+            onShouldStartLoadWithRequest={(request) => {
+              // 🚫 Block redirects to unknown domains
+              const allowedDomains = [
+                "vidsrc",
+                "vidrock",
+                "vidlink",
+                "autoembed",
+                "player",
+                "upcloud",
+                "smashystream",
+                "yourdomain",
+              ];
+              const isAllowed = allowedDomains.some((domain) =>
+                request.url.includes(domain)
+              );
+
+              if (!isAllowed && request.url !== request.mainDocumentURL) {
+                console.log("Blocked popup:", request.url);
+                return false; // block navigation
+              }
+
+              return true; // allow main player content
+            }}
+            injectedJavaScriptBeforeContentLoaded={`
+    // 🚫 Disable window.open calls
+    window.open = function() {
+      console.log('Blocked popup attempt');
+      return null;
+    };
+
+    // 🚫 Block common ad popups
+    const blockPopupEvents = () => {
+      const blockList = ['click', 'mousedown', 'mouseup'];
+      blockList.forEach(event => {
+        window.addEventListener(event, (e) => {
+          if (e.target.tagName === 'A' && e.target.href.includes('http')) {
+            e.preventDefault();
+            console.log('Blocked link:', e.target.href);
+          }
+        }, true);
+      });
+    };
+    blockPopupEvents();
+  `}
           />
         )}
       </View>
 
+      <View>
+        {/* Server Selector */}
+        <Text className="text-blue-400 text-lg font-semibold px-4 mb-2">
+          Select a Server:
+        </Text>
+        {tab === "stream" && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="flex-row px-4 mb-3"
+          >
+            {servers.map((server) => (
+              <TouchableOpacity
+                key={server.key}
+                onPress={() => setSelectedServer(server)}
+                className={`px-4 py-2 mr-2 rounded-full ${
+                  selectedServer.key === server.key
+                    ? "bg-blue-600"
+                    : "bg-gray-700"
+                }`}
+              >
+                <Text className="text-white text-sm">{server.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        )}
+      </View>
       {/* Show TV Episode Selector */}
       {category === "tv" && (
         <View className="items-center my-4">
@@ -267,7 +351,9 @@ const WatchPage = () => {
 
       {/* Overview */}
       <View className="px-4">
-        <Text className="text-white text-lg font-semibold mb-2">Overview</Text>
+        <Text className="text-blue-400 text-lg font-semibold mb-2">
+          Overview
+        </Text>
         <Text className="text-gray-300 leading-5">{content.overview}</Text>
       </View>
 

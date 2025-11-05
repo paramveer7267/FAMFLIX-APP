@@ -143,15 +143,15 @@ const WatchList = () => {
   return (
     <View className="flex-1 bg-black">
       {/* Header */}
-      <View className="flex-row justify-between items-center mx-4 mt-4 mb-8">
-        <TouchableOpacity onPress={() => router.back()}>
+      <View className="flex-row justify-center items-center mx-4 mt-4 mb-6">
+        {/* <TouchableOpacity onPress={() => router.back()}>
           <ArrowLeft color="white" size={28} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text className="text-white text-2xl font-bold">Watchlist</Text>
-        <TouchableOpacity onPress={confirmClearAll}>
-          <Text className="text-red-600 font-semibold text-lg">Clear all</Text>
-        </TouchableOpacity>
       </View>
+        <TouchableOpacity onPress={confirmClearAll}>
+          <Text className="text-red-600 ml-4 font-semibold text-lg">Clear all</Text>
+        </TouchableOpacity>
 
       {/* List */}
       <FlatList
