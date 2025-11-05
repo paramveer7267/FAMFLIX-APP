@@ -45,7 +45,7 @@ app.use(
     credentials: true,
   })
 );
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("⚡API is running...");
 });
 app.use("/api/v1/auth", authRoutes);
