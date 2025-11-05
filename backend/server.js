@@ -45,7 +45,9 @@ app.use(
     credentials: true,
   })
 );
-
+app.use("/", (req, res) => {
+  res.send("⚡API is running...");
+});
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", protectRoute, userRoutes);
 app.use("/api/v1/anime", protectRoute, animeRoutes);
