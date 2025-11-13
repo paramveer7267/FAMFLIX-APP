@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import { Trash, ArrowLeft } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import axios from "axios";
+import api from "@/utils/axiosInstance";
 import Toast from "react-native-toast-message";
 import useWatchlist from "@/hooks/useWatchlist";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { COLORS } from "@/constants/theme";
+
 const IMG_BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const formatDate = (dateString: string) => {
@@ -41,10 +42,10 @@ const WatchList = () => {
   const queryClient = useQueryClient();
   const { data: watchlist = [], isLoading, isError, refetch } = useWatchlist();
 
-  // Delete mutation
+  /** DELETE ONE ITEM */
   const deleteMutation = useMutation({
     mutationFn: async (entry: any) =>
-      axios.delete(`/api/v1/watchlist/movie/${entry.id}`),
+      api.delete(`/api/v1/watchlist/movie/${entry.id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["watchlist"] });
       Toast.show({ type: "success", text1: "Deleted from Watchlist!" });
@@ -53,23 +54,22 @@ const WatchList = () => {
       Toast.show({ type: "error", text1: "Failed to delete item." }),
   });
 
-  // Clear all mutation
+  /** CLEAR ALL */
   const clearMutation = useMutation({
-    mutationFn: async () => axios.delete("/api/v1/watchlist/movies/clear"),
+    mutationFn: async () => api.delete("/api/v1/watchlist/movies/clear"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["watchlist"] });
-
       Toast.show({ type: "success", text1: "Watchlist cleared!" });
     },
     onError: () =>
       Toast.show({ type: "error", text1: "Failed to clear watchlist." }),
   });
 
-  // Confirm delete single item
+  /** CONFIRM DELETE ONE */
   const confirmDelete = (item: any) => {
     Alert.alert(
-      "Delete from Watchlist",
-      `Are you sure you want to remove "${item.title}"?`,
+      "Delete Item?",
+      "Are you sure you want to remove this from your watchlist?",
       [
         { text: "Cancel", style: "cancel" },
         {
@@ -81,11 +81,11 @@ const WatchList = () => {
     );
   };
 
-  // Confirm clear all
+  /** CONFIRM CLEAR ALL */
   const confirmClearAll = () => {
     Alert.alert(
-      "Clear Watchlist",
-      "Are you sure you want to clear all items from your Watchlist?",
+      "Clear Watchlist?",
+      "This will remove ALL items from your watchlist.",
       [
         { text: "Cancel", style: "cancel" },
         {
@@ -97,17 +97,16 @@ const WatchList = () => {
     );
   };
 
-  // Loading state
+  /** UI STATES */
   if (isLoading) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
-        <ActivityIndicator color={COLORS.primary} size="large" />{" "}
+        <ActivityIndicator color={COLORS.primary} size="large" />
         <Text className="text-white mt-3">Loading Watchlist...</Text>
       </View>
     );
   }
 
-  // Error state
   if (isError) {
     return (
       <View className="flex-1 bg-black justify-center items-center">
@@ -118,53 +117,50 @@ const WatchList = () => {
           className="bg-blue-600 px-5 py-2 rounded-lg mt-4"
           onPress={() => refetch()}
         >
-          <Text>Retry</Text>
+          <Text className="text-white">Retry</Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  // Empty state
   if (watchlist.length === 0) {
     return (
-      <View className="flex-1 bg-black justify-center items-center">
-        <TouchableOpacity
-          onPress={() => router.back()}
-          className="absolute top-14 left-5"
-        >
-          <ArrowLeft color="white" size={28} />
-        </TouchableOpacity>
-        <Text className="text-white text-2xl font-bold">Watchlist</Text>
-        <Text className="text-gray-400 mt-2">No items found 😥</Text>
+      <View className="flex-1 bg-black">
+        <View className="flex-row justify-center items-center mx-4 mt-4 mb-6">
+          <Text className="text-white text-2xl font-bold">Watchlist</Text>
+        </View>
+        <View className="flex-1 justify-center items-center">
+          <Text className="text-gray-400 -mt-10">No items found 😥</Text>
+        </View>
       </View>
     );
   }
 
+  /** MAIN UI */
   return (
     <View className="flex-1 bg-black">
       {/* Header */}
       <View className="flex-row justify-center items-center mx-4 mt-4 mb-6">
-        {/* <TouchableOpacity onPress={() => router.back()}>
-          <ArrowLeft color="white" size={28} />
-        </TouchableOpacity> */}
         <Text className="text-white text-2xl font-bold">Watchlist</Text>
       </View>
-        <TouchableOpacity onPress={confirmClearAll}>
-          <Text className="text-red-600 ml-4 font-semibold text-lg">Clear all</Text>
-        </TouchableOpacity>
 
-      {/* List */}
+      <TouchableOpacity
+        onPress={confirmClearAll}
+        className="flex-row justify-end mb-2 mr-4"
+      >
+        <Text className="text-red-600 ml-4 font-semibold text-lg">
+          Clear all
+        </Text>
+      </TouchableOpacity>
+
+      {/* LIST */}
       <FlatList
         data={watchlist}
         keyExtractor={(item) => item.id?.toString()}
         contentContainerStyle={{ paddingBottom: 40 }}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() =>
-              router.push(
-                `/watch/${item.type}/${item.id}` as `/watch/[category]/[id]`
-              )
-            }
+            onPress={() => router.push(`/watch/${item.type}/${item.id}`)}
             className="flex-row bg-[#1F2937] rounded-xl p-3 mx-4 mb-3 items-center active:opacity-80"
           >
             <Image
@@ -172,6 +168,7 @@ const WatchList = () => {
               className="w-[70px] h-[100px] rounded-lg mr-3"
               resizeMode="cover"
             />
+
             <View className="flex-1">
               <Text className="text-white text-base font-semibold">
                 {item.title || item.name}
@@ -179,6 +176,7 @@ const WatchList = () => {
               <Text className="text-gray-400 text-xs mt-1">
                 {formatDate(item.created)}
               </Text>
+
               <Text
                 className={`text-white px-3 py-1 mt-2 rounded-full text-xs self-start ${
                   item.type === "movie"
