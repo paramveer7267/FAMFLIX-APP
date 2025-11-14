@@ -2,7 +2,7 @@
   "expo": {
     "name": "FAMFLIX",
     "slug": "mobile",
-    "version": "1.2.3",
+    "version": "1.3.4",
     "orientation": "portrait",
     "icon": "./assets/images/famflix-logo-wbg.png",
     "scheme": "mobile",

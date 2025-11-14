@@ -4,10 +4,11 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/constants/theme";
 import { useIsFocused } from "@react-navigation/native";
-
-const CustomTabButton = ({ onPress, name, label, size = 22 }) => {
+import { useContentStore } from "@/store/content";
+const CustomTabButton = ({ onPress, name, label, size = 22, type }) => {
   const isFocused = useIsFocused();
   const scale = useRef(new Animated.Value(isFocused ? 1.08 : 1)).current;
+  const setContentType = useContentStore((state) => state.setContentType);
 
   useEffect(() => {
     Animated.spring(scale, {
@@ -16,6 +17,9 @@ const CustomTabButton = ({ onPress, name, label, size = 22 }) => {
       friction: 5,
       tension: 90,
     }).start();
+    if (isFocused && type) {
+      setContentType(type);
+    }
   }, [isFocused]);
 
   const handlePressIn = () => {
@@ -36,7 +40,7 @@ const CustomTabButton = ({ onPress, name, label, size = 22 }) => {
     }).start();
   };
 
-  // ✅ This now re-renders with proper focus state
+  //  This now re-renders with proper focus state
   const color = isFocused ? COLORS.primary : COLORS.grey;
 
   return (
@@ -95,7 +99,12 @@ const TabLayout = () => {
         name="movie"
         options={{
           tabBarButton: (props) => (
-            <CustomTabButton {...props} name="film-outline" label="Movies" />
+            <CustomTabButton
+              {...props}
+              name="film-outline"
+              label="Movies"
+              type="movie"
+            />
           ),
         }}
       />
@@ -103,7 +112,12 @@ const TabLayout = () => {
         name="tv"
         options={{
           tabBarButton: (props) => (
-            <CustomTabButton {...props} name="tv-outline" label="TV Shows" />
+            <CustomTabButton
+              {...props}
+              name="tv-outline"
+              label="TV Shows"
+              type="tv"
+            />
           ),
         }}
       />

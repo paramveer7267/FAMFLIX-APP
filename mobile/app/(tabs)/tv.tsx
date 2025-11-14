@@ -193,7 +193,7 @@ const TvShows = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => router.push(`/details/tv/${tvShow?.id}`)}
+                onPress={() => router.push(`/watch/tv/${tvShow?.id}`)}
                 activeOpacity={0.8}
                 style={{
                   flexDirection: "row",

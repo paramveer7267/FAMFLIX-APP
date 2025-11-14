@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useContentStore } from "../store/content";
 import api from "@/utils/axiosInstance";
 

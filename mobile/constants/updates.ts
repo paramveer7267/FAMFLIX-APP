@@ -1,27 +1,44 @@
 export const updates = [
   {
-  version: "1.2.3",
-  date: "2025-11-13",
-  title: "Splash Screen Added, Watchlist Fixes & UI Improvements",
-  description:
-    "This update introduces a new animated splash screen experience and includes important fixes to the Watchlist module. Several UI refinements have also been made to ensure smoother performance and a more polished experience.",
+    version: "1.3.4",
+    date: "2025-11-14",
+    title: "TV Show Banner Fixed, Added New Servers",
+    description:
+      "This update introduces major fixes for the TV show banner along with new server integrations for improved streaming stability.",
 
-  updates: `
+    updates: `
+  • Added new streaming servers for smoother playback.
+  `,
+
+    bugFixes: `
+  • Fixed TV show banner not showing the content.
+  `,
+    active: true,
+  },
+
+  {
+    version: "1.2.3",
+    date: "2025-11-13",
+    title: "Splash Screen Added, Watchlist Fixes & UI Improvements",
+    description:
+      "This update introduces a new animated splash screen experience and includes important fixes to the Watchlist module. Several UI refinements have also been made to ensure smoother performance and a more polished experience.",
+
+    updates: `
   • Added a new animated splash screen with improved logo transitions.
   • Implemented refined app startup flow for smoother navigation.
   • Enhanced UI responsiveness and layout consistency across screens.
   `,
 
-  bugFixes: `
+    bugFixes: `
   • Fixed Watchlist delete issue where items were not being removed properly.
   • Resolved Watchlist 'Clear All' not functioning on some devices.
   • Addressed animation conflicts and gesture-handler issues affecting fast refresh.
   • Fixed safe area warnings by switching to react-native-safe-area-context.
   `,
 
-  active: true,
-},
-{
+    active: false,
+  },
+  {
     version: "1.1.2",
     date: "2025-11-05",
     title: "Minor Bug Fixes, UI Improvements & New Pages",
